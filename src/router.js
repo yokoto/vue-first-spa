@@ -23,7 +23,27 @@ const router = new VueRouter({
       path: '/product/:id(\\d+)',  // 「:id」がパラメータ 何が入ってもOK
       component: Product,
       // 関数の場合第1引数として現在のルートオブジェクトが使用できる
-      props: route => ({ id: Number(route.params.id)})
+      props: route => ({ id: Number(route.params.id)}),
+      children: [
+        // 商品詳細(デフォルトルート)
+        {
+          name: 'product-home',
+          path: '',
+          component: ProductHome
+        },
+        // 商品のレビュー一覧
+        {
+          name: 'product-review',
+          path: 'review',
+          component: ProductReview
+        },
+        // 商品のレビュー詳細
+        {
+          name: 'review-detail',
+          path: 'review/:rid',  // 親ルートとかぶらないパラメータを指定
+          component: ProductReviewDetail
+        }
+      ]
     }
   ]
 })
